@@ -1,0 +1,31 @@
+{
+  "model": "ALLS UX",
+  "screen": 0,
+  "steps": {
+    "1": {
+      "duration": 6,
+      "description": "起動しています",
+      "action": ""
+    },
+    "4": {
+      "duration": 3,
+      "description": "ネットワークの設定をしています",
+      "action": ""
+    },
+    "10": {
+      "duration": 0.01,
+      "description": "インストールメディアを接続してください",
+      "action": ""
+    },
+    "21": {
+      "duration": 5,
+      "description": "ゲームプログラムの起動準備中です",
+      "action": "import os; os.system('start msedge.exe')"
+    },
+    "30": {
+      "duration": 5,
+      "description": "まもなくゲームプログラムが起動します",
+      "action": ""
+    }
+  }
+}
