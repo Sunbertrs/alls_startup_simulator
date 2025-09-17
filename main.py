@@ -4,6 +4,7 @@ import screeninfo
 from tkinter import *
 from tkinter.ttk import *
 from PIL import Image, ImageTk, ImageSequence
+from pynput.mouse import Controller
 import json
 
 class GUI:
@@ -21,10 +22,12 @@ class GUI:
         for i, s in enumerate(self.screen_info):
             if i == self.config['screen']:
                 self.root.geometry("{}x{}+{}+{}".format(s.width, s.height, s.x, s.y))
+                mouse = Controller()
+                mouse.position = (s.width, s.height)
+                del mouse
                 self.root.state('zoomed')
                 break
 
-        # self.root.attributes('-fullscreen', True)
         self.frame = Frame(self.root)
         self.frame.pack(expand=YES)
 
