@@ -23,7 +23,7 @@ Just modify a few things in `config.json`.
 - **`font_color`**: The color of the text on the screen.
 
 - **`steps`**: The steps that the startup program will run. Each step is an object with the following properties:
-  - **`duration`**: The invertal of time (in seconds) that the step will take to complete.
+  - **`duration`**: The interval of time (in seconds) that the step will take to complete.
   - **`description`**: The text that will show on next to the loading icon.
   - **`action`**: The action that you want to perform when on this step. Action should be an legal Python statement.
 
