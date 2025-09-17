@@ -15,14 +15,14 @@
       "action": ""
     },
     "10": {
-      "duration": 0.01,
+      "duration": 0.001,
       "description": "インストールメディアを接続してください",
       "action": ""
     },
     "21": {
       "duration": 5,
       "description": "ゲームプログラムの起動準備中です",
-      "action": "import os; os.system('start msedge.exe')"
+      "action": "import os; os.system()"
     },
     "30": {
       "duration": 5,

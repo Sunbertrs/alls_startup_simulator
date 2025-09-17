@@ -38,13 +38,13 @@ class GUI:
 
         self.container = Frame(self.frame)
         if self.screen_info[self.config['screen']].height > self.screen_info[self.config['screen']].width:
-            upper_border = 320
+            upper_border = 300
         else:
-            upper_border = 20
+            upper_border = 0
         self.container.grid(sticky="WE", pady=(upper_border,0))
 
         self.logo = PhotoImage(file="assets/logo.png")
-        self.logo_label = Label(self.container, image=self.logo, padding=10)
+        self.logo_label = Label(self.container, image=self.logo)
         self.logo_label.grid(row=0, pady=40, sticky="S")
 
         self.font_set = ("Yu Gothic", 28, "bold")
@@ -52,8 +52,8 @@ class GUI:
         self.model = Label(self.container, text=self.config['model'], font=self.font_set)
         self.model.grid(row=1)
 
-        self.step = Label(self.container, text="STEP", font=self.font_set)
-        self.step.grid(row=2, pady=30)
+        self.step = Label(self.container, text="STEP", font=self.font_set, width=50, anchor='center')
+        self.step.grid(row=2, pady=5)
 
         self.description_frame = Frame(self.container)
         self.description_frame.grid(row=3)
@@ -65,7 +65,9 @@ class GUI:
         self.description_load.grid(row=0, column=0, sticky="W")
 
         self.step_description = Label(self.description_frame, text="", font=self.font_set, anchor="nw")
-        self.step_description.grid(row=0,column=1, sticky="W", padx=5)
+        self.step_description.grid(row=0,column=1, sticky="W")
+
+        self.error_occurred = False
 
         Thread(target=self.play_gif, args=(0,), daemon=True).start()
 
