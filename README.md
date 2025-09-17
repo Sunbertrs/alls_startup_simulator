@@ -25,7 +25,7 @@ Just modify a few things in `config.json`.
 - **`steps`**: The steps that the startup program will run. Each step is an object with the following properties:
   - **`duration`**: The invertal of time (in seconds) that the step will take to complete.
   - **`description`**: The text that will show on next to the loading icon.
-  - **`action`**: The action that you want to perform when on this step. Action should be an illegal Python statement.
+  - **`action`**: The action that you want to perform when on this step. Action should be an legal Python statement.
 
 - **`errors`**: The errors that will show when the `action` in `step` call out an error. Each error number and description follows a key-value pair format.
   - Key: The error number.
