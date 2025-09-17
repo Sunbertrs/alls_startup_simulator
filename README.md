@@ -32,4 +32,4 @@ Just modify a few things in `config.json`.
   - Value: The error description.
 
 - When error was defined in `errors`, you can run `error('Error Number Here')` in `action` to call out an error.
-  - Don't forget to make the error number in string. For example: `"action": "error('0001')`
+  - Don't forget to make the error number in string. For example: `"action": "error('0001')"`
