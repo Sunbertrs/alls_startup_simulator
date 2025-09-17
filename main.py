@@ -14,6 +14,7 @@ class GUI:
         self.root.attributes('-topmost', True)
         self.root.overrideredirect(True)
         self.root.configure(background='white')
+        self.root.bind('<Escape>', lambda _: self.root.destroy())
 
         with open("config.json", "r", encoding="utf-8") as f:
             self.config = json.load(f)
@@ -88,4 +89,5 @@ class GUI:
 
 if __name__ == "__main__":
     program = GUI(Tk())
+
     program.root.mainloop()
