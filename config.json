@@ -1,6 +1,7 @@
 {
   "model": "ALLS UX",
   "screen": 0,
+  "background": "#FFF",
   "steps": {
     "1": {
       "duration": 6,

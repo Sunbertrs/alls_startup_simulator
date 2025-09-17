@@ -13,7 +13,6 @@ class GUI:
         self.root.title("Amusement Linkage Live System")
         self.root.attributes('-topmost', True)
         self.root.overrideredirect(True)
-        self.root.configure(background='white')
         self.root.bind('<Escape>', lambda _: self.root.destroy())
 
         with open("config.json", "r", encoding="utf-8") as f:
@@ -33,6 +32,9 @@ class GUI:
         self.frame.pack(expand=YES)
 
         Style().configure("TFrame", background='white')
+        self.root.configure(background=self.config['background'])
+        Style().configure("TFrame", background=self.config['background'])
+        Style().configure("TLabel", background=self.config['background'])
 
         self.container = Frame(self.frame)
         if self.screen_info[self.config['screen']].height > self.screen_info[self.config['screen']].width:
@@ -42,15 +44,15 @@ class GUI:
         self.container.grid(sticky="WE", pady=(upper_border,0))
 
         self.logo = PhotoImage(file="assets/logo.png")
-        self.logo_label = Label(self.container, image=self.logo, background='white', padding=10)
+        self.logo_label = Label(self.container, image=self.logo, padding=10)
         self.logo_label.grid(row=0, pady=40, sticky="S")
 
         self.font_set = ("Yu Gothic", 28, "bold")
 
-        self.model = Label(self.container, text=self.config['model'], font=self.font_set, background='white')
+        self.model = Label(self.container, text=self.config['model'], font=self.font_set)
         self.model.grid(row=1)
 
-        self.step = Label(self.container, text="STEP", font=self.font_set, background='white')
+        self.step = Label(self.container, text="STEP", font=self.font_set)
         self.step.grid(row=2, pady=30)
 
         self.description_frame = Frame(self.container)
@@ -59,11 +61,11 @@ class GUI:
         load_pic = Image.open(f"assets/logomode_load.gif")
         self.loading_frames = [ImageTk.PhotoImage(frame.resize((45, 45))) for frame in ImageSequence.Iterator(load_pic)]
 
-        self.description_load = Label(self.description_frame, background='white', image=self.loading_frames[0])
+        self.description_load = Label(self.description_frame, image=self.loading_frames[0])
         self.description_load.grid(row=0, column=0, sticky="W")
 
-        self.step_description = Label(self.description_frame, text="", font=self.font_set, anchor="nw", background='white')
-        self.step_description.grid(row=0,column=1, sticky="W", padx=10)
+        self.step_description = Label(self.description_frame, text="", font=self.font_set, anchor="nw")
+        self.step_description.grid(row=0,column=1, sticky="W", padx=5)
 
         Thread(target=self.play_gif, args=(0,), daemon=True).start()
 
@@ -89,5 +91,4 @@ class GUI:
 
 if __name__ == "__main__":
     program = GUI(Tk())
-
     program.root.mainloop()
