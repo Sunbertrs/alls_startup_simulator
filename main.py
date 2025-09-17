@@ -61,7 +61,7 @@ class GUI:
         load_pic = Image.open(f"assets/logomode_load.gif")
         self.loading_frames = [ImageTk.PhotoImage(frame.resize((45, 45))) for frame in ImageSequence.Iterator(load_pic)]
 
-        self.description_load = Label(self.description_frame, image=self.loading_frames[0])
+        self.description_load = Label(self.description_frame)
         self.description_load.grid(row=0, column=0, sticky="W")
 
         self.step_description = Label(self.description_frame, text="", font=self.font_set, anchor="nw")
@@ -74,14 +74,18 @@ class GUI:
         Thread(target=self.step_sequence, args=(self.config['steps'],), daemon=True).start()
     
     def play_gif(self, index):
-        while True:
+        while not self.error_occurred:
             self.description_load['image'] = self.loading_frames[index]
             index = (index + 1) % len(self.loading_frames)
             time.sleep(0.04)
+        else:
+            self.description_load['image'] = PhotoImage()
     
     def step_sequence(self, steps: dict):
         for step in steps:
             self.set_step(step)
+            if self.error_occurred:
+                return
             time.sleep(self.config['steps'][step]['duration'])
         self.root.quit()
     
@@ -89,7 +93,32 @@ class GUI:
         self.step['text'] = f"STEP {step}"
         self.step_description['text'] = self.config['steps'][step]['description']
         if self.config['steps'][step]['action'] != "":
-            exec(self.config['steps'][step]['action'])
+            try:
+                exec(f"error = self.error\n"+self.config['steps'][step]['action'])
+            except Exception:
+                self.error('0')
+
+    def error(self, code: str):
+        self.error_occurred = True
+        self.description_load['image'] = None
+        self.step['text'] = f'ERROR {code}'
+        self.step_description['text'] = self.config['errors'][code]
+        Thread(target=self.text_color_change, daemon=True).start()
+
+    def text_color_change(self):
+        depth = 0
+        increment = True
+        while True:
+            if increment:
+                depth += 1 if depth < 8 else 0
+            else:
+                depth -= 1 if depth != 0 else 0
+            if depth == 8:
+                increment = False
+            elif depth == 0:
+                increment = True
+            self.step['foreground'] = self.step_description['foreground'] = f'#F{depth:x}0'
+            time.sleep(0.12)
 
 if __name__ == "__main__":
     program = GUI(Tk())
