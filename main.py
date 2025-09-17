@@ -31,10 +31,10 @@ class GUI:
         self.frame = Frame(self.root)
         self.frame.pack(expand=YES)
 
-        Style().configure("TFrame", background='white')
         self.root.configure(background=self.config['background'])
         Style().configure("TFrame", background=self.config['background'])
         Style().configure("TLabel", background=self.config['background'])
+        Style().configure("TLabel", foreground=self.config['font_color'])
 
         self.container = Frame(self.frame)
         if self.screen_info[self.config['screen']].height > self.screen_info[self.config['screen']].width:
