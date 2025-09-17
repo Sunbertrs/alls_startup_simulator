@@ -1,3 +1,4 @@
 screeninfo~=0.8.1
 future~=1.0.0
 pillow~=10.3.0
+pynput~=1.8.0
