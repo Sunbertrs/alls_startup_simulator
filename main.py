@@ -6,6 +6,9 @@ from tkinter.ttk import *
 from PIL import Image, ImageTk, ImageSequence
 from pynput.mouse import Controller
 import json
+import os
+
+os.chdir(os.path.dirname(__file__))
 
 class GUI:
     def __init__(self, root: Tk):
@@ -15,8 +18,13 @@ class GUI:
         self.root.overrideredirect(True)
         self.root.bind('<Escape>', lambda _: self.root.destroy())
 
-        with open("config.json", "r", encoding="utf-8") as f:
-            self.config = json.load(f)
+        try:
+            with open("config.json", "r", encoding="utf-8") as f:
+                self.config = json.load(f)
+        except Exception:
+            self.root.destroy()
+            print("Unable to run. Please check your config.json.")
+            return
         
         self.screen_info = screeninfo.get_monitors()
         for i, s in enumerate(self.screen_info):
