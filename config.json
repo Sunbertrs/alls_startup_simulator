@@ -7,27 +7,28 @@
     "1": {
       "duration": 6,
       "description": "起動しています",
-      "action": ""
+      "action": []
     },
     "4": {
       "duration": 3,
       "description": "ネットワークの設定をしています",
-      "action": ""
+      "action": []
     },
     "10": {
       "duration": 0.001,
       "description": "インストールメディアを接続してください",
-      "action": ""
+      "action": []
     },
     "21": {
       "duration": 5,
       "description": "ゲームプログラムの起動準備中です",
-      "action": "import os; os.system()"
+      "action": ["import os",
+                 "os.system('')"]
     },
     "30": {
       "duration": 5,
       "description": "まもなくゲームプログラムが起動します",
-      "action": ""
+      "action": ["error('0001')"]
     }
   },
   "errors": {

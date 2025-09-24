@@ -92,9 +92,9 @@ class GUI:
     def set_step(self, step: str):
         self.step['text'] = f"STEP {step}"
         self.step_description['text'] = self.config['steps'][step]['description']
-        if self.config['steps'][step]['action'] != "":
+        if self.config['steps'][step]['action']:
             try:
-                exec(f"error = self.error\n"+self.config['steps'][step]['action'])
+                exec(f"error = self.error\nupdate = self.update\n"+"\n".join(l for l in self.config['steps'][step]['action']))
             except Exception:
                 self.error('0')
 
