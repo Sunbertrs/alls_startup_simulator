@@ -19,6 +19,14 @@
       "description": "インストールメディアを接続してください",
       "action": []
     },
+    "12": {
+      "duration": 0,
+      "description": "ゲームプログラムをインストールしています",
+      "action": ["import time",
+                 "for percent in range(0, 100):",
+                 "    update(1, 1, f'{percent}.0%')",
+                 "    time.sleep(0.05)"]
+    },
     "21": {
       "duration": 5,
       "description": "ゲームプログラムの起動準備中です",

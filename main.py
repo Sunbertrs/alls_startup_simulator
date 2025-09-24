@@ -68,6 +68,7 @@ class GUI:
         self.step_description.grid(row=0,column=1, sticky="W")
 
         self.error_occurred = False
+        self.update_triggered = False
 
         Thread(target=self.play_gif, args=(0,), daemon=True).start()
 
@@ -104,6 +105,14 @@ class GUI:
         self.step['text'] = f'ERROR {code}'
         self.step_description['text'] = self.config['errors'][code]
         Thread(target=self.text_color_change, daemon=True).start()
+
+    def update(self, part: int, total: int, percent: str):
+        if part > total:
+            self.error('0')
+        if not self.update_triggered:
+            self.update_triggered = True
+            self.update_description = self.step_description['text']
+        self.step_description['text'] = f"{self.update_description}  {part} / {total}  {percent}"
 
     def text_color_change(self):
         depth = 0
