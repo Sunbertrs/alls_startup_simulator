@@ -32,7 +32,7 @@ Just modify a few things in `config.json`.
   - Value: The error description.
 
 - When error was defined in `errors`, you can run `error('Error Number Here')` in `action` to call out an error.
-  - Don't forget to make the error number in string. For example: `"action": "error('0001')"`
+  - Don't forget to make the error number in string. For example: `"action": ["error('0001')"]`
 
 - You can also set an update step in `action` with a `update()` function. This function requires three arguments: `part`, `total`, `percent`.
   - `part` and `total` are either integer that will show next to the description. They are like fraction, where `part` is a denominator and `total` is numerator.
