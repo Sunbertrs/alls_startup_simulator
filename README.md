@@ -25,7 +25,7 @@ Just modify a few things in `config.json`.
 - **`steps`**: The steps that the startup program will run. Each step is an object with the following properties:
   - **`duration`**: The interval of time (in seconds) that the step will take to complete.
   - **`description`**: The text that will show on next to the loading icon.
-  - **`action`**: The action that you want to perform when on this step. Action should be an legal Python statement.
+  - **`action`**: The action that you want to perform when on this step. Action should be an legal Python statement, and each line of statement should be separated. 
 
 - **`errors`**: The errors that will show when the `action` in `step` call out an error. Each error number and description follows a key-value pair format.
   - Key: The error number.
@@ -33,3 +33,7 @@ Just modify a few things in `config.json`.
 
 - When error was defined in `errors`, you can run `error('Error Number Here')` in `action` to call out an error.
   - Don't forget to make the error number in string. For example: `"action": "error('0001')"`
+
+- You can also set an update step in `action` with a `update()` function. This function requires three arguments: `part`, `total`, `percent`.
+  - `part` and `total` are either integer that will show next to the description. They are like fraction, where `part` is a denominator and `total` is numerator.
+  - `percent` is a string that will show the percent of the process. You can check the example action script in `config.json` to see how it works.
