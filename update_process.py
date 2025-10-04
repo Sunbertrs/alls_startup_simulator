@@ -5,7 +5,7 @@ def get_commit(url: str) -> dict:
     while True:
         commit = requests.get(url)
         if commit.status_code == 200:
-            print(f"get commit {url}")
+            print(f"Get commit {url}")
             break
     return commit.json()
 
@@ -19,7 +19,7 @@ def download_file(url: str) -> None:
     for _ in range(retry_timeout):
         file = requests.get(url)
         if file.status_code == 200:
-            print(f"dl file {url}")
+            print(f"Downloading {url}")
             file_name = get_file_name(url)
             open(file_name, "wb").write(file.content)
             break
@@ -42,7 +42,7 @@ def process(display_process):
     commits = get_commit("https://api.github.com/repos/Sunbertrs/alls_startup_simulator/commits")
 
     if config["hash"] == commits[0]["sha"]:
-        print("No need to")
+        print("Skip program install")
         return
     else:
         tmp = []
@@ -52,14 +52,16 @@ def process(display_process):
                 tmp.pop()
                 break
 
+    total = len(tmp)
     while len(tmp) != 0:
-        arg = [len(tmp)-tmp.index(tmp[-1]), len(tmp), "0.00%"]
-        display_process(*arg)
+        arg = [total-len(tmp)+1, total]
+        display_process(*arg, f"{0:.2%}")
         commit = get_commit(f"https://api.github.com/repos/Sunbertrs/alls_startup_simulator/commits/{tmp[-1]}")
         for file in commit["files"]:
-            arg[2] = f'{(commit["files"].index(file)+1 / len(commit["files"])):.2%}'
-            display_process(*arg)
+            display_process(*arg, f'{(commit["files"].index(file) / len(commit["files"])):.2%}')
             download_file(file["raw_url"])
+            for p in range(int((commit["files"].index(file) / len(commit["files"]))*100), int((commit["files"].index(file)+1 / len(commit["files"])))*100):
+                display_process(*arg, f'{p/100:.2%}')
         tmp.pop()
-
+    display_process(total, total, f"{1:.2%}")
     update_hash(config["hash"], commits[0]["sha"])
