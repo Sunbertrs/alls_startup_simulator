@@ -39,6 +39,9 @@ def process(display_process):
     with open("config.json", "r", encoding="utf-8") as f:
         config = json.load(f)
 
+    if config["hash"] == "":
+        return
+
     commits = get_commit("https://api.github.com/repos/Sunbertrs/alls_startup_simulator/commits")
 
     if config["hash"] == commits[0]["sha"]:
