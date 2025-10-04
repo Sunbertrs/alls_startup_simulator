@@ -1,7 +1,7 @@
 import requests
 import json
 
-def get_commit(url) -> dict:
+def get_commit(url: str) -> dict:
     while True:
         commit = requests.get(url)
         if commit.status_code == 200:
@@ -14,7 +14,7 @@ def get_file_name(url: str) -> str:
     url = url.split("/")
     return url[-1]
 
-def download_file(url) -> None:
+def download_file(url: str) -> None:
     retry_timeout = 3
     for _ in range(retry_timeout):
         file = requests.get(url)
@@ -23,6 +23,17 @@ def download_file(url) -> None:
             file_name = get_file_name(url)
             open(file_name, "wb").write(file.content)
             break
+
+def update_hash(old_hash: str, new_hash: str) -> None:
+    with open("config.json", "r", encoding="utf-8") as f:
+        content = f.readlines()
+
+    for i, l in enumerate(content):
+        if old_hash in l:
+            content[i] = l.replace(old_hash, new_hash)
+
+    with open("config.json", "w", encoding="utf-8") as f:
+        f.writelines(content)
 
 def process(display_process):
     with open("config.json", "r", encoding="utf-8") as f:
@@ -50,3 +61,5 @@ def process(display_process):
             display_process(*arg)
             download_file(file["raw_url"])
         tmp.pop()
+
+    update_hash(config["hash"], commits[0]["sha"])
