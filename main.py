@@ -60,7 +60,7 @@ class GUI:
         self.model = Label(self.container, text=self.config['model'], font=self.font_set)
         self.model.grid(row=1)
 
-        self.step = Label(self.container, text="STEP", font=self.font_set, width=50, anchor='center')
+        self.step = Label(self.container, text="STEP", font=self.font_set, width=60, anchor='center')
         self.step.grid(row=2, pady=5)
 
         self.description_frame = Frame(self.container)
